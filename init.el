@@ -7,10 +7,10 @@
 (setq package-archives '(("elpa" . "https://tromey.com/elpa/")
                          ("gnu" . "https://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")))
-                         
+
 (setq create-lockfiles nil;
-default-input-method "greek"
-)
+	  default-input-method "greek"
+	  )
 
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
@@ -64,8 +64,8 @@ There are two things you can do about this warning:
      (require 'ac-math)
      (defun ac-latex-mode-setup ()       ; add ac-sources to default ac-sources
        (setq ac-sources
-         (append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
-             ac-sources)))
+			 (append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
+					 ac-sources)))
      (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)))
 
 
@@ -116,14 +116,14 @@ There are two things you can do about this warning:
 
 (require 'flycheck)
 (use-package flycheck
-			 :ensure t
-			 :init (global-flycheck-mode))
+  :ensure t
+  :init (global-flycheck-mode))
 
 (setq flycheck-python-pycompile-executable "python")
 ;; disable jshint since we prefer eslint checking
 (setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-		  '(javascript-jshint)))
+			  (append flycheck-disabled-checkers
+					  '(javascript-jshint)))
 
 ;; use eslint with web-mode for jsx files
 (flycheck-add-mode 'javascript-eslint 'web-mode)
@@ -132,8 +132,8 @@ There are two things you can do about this warning:
 
 ;; disable json-jsonlist checking for json files
 (setq-default flycheck-disabled-checkers
-  (append flycheck-disabled-checkers
-    '(json-jsonlist)))
+			  (append flycheck-disabled-checkers
+					  '(json-jsonlist)))
 
 (setq python-indent-guess-indent-offset-verbose nil)
 
@@ -188,7 +188,7 @@ There are two things you can do about this warning:
               '(("java"       . "/*")
                 ("javascript" . "//")
                 ("php"        . "/*")))
-                
+
 ;; Change comment format for C in C mode
 (add-hook 'c-mode-hook (lambda () (c-toggle-comment-style -1)))
 
