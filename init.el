@@ -31,11 +31,11 @@ There are two things you can do about this warning:
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
-										; fetch the list of packages available
+;; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
-										; install the missing packages
+;;install missing packages
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
