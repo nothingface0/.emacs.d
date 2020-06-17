@@ -105,7 +105,7 @@ There are two things you can do about this warning:
 	("2593436c53c59d650c8e3b5337a45f0e1542b1ba46ce8956861316e860b145a0" "28caf31770f88ffaac6363acfda5627019cac57ea252ceb2d41d98df6d87e240" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
  '(package-selected-packages
    (quote
-	(exec-path-from-shell json-mode yaml-mode dakrone-theme dracula-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
+	(python-black exec-path-from-shell json-mode yaml-mode dakrone-theme dracula-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -136,6 +136,13 @@ There are two things you can do about this warning:
 					  '(json-jsonlist)))
 
 (setq python-indent-guess-indent-offset-verbose nil)
+
+;; Python black formatter
+(use-package python-black
+  :demand t
+  :after python)
+
+(setq python-black-on-save-mode t)
 
 ;; Enable Arduino major mode
 ;; (add-to-list 'load-path "~/.emacs.d/vendor/arduino-mode")
