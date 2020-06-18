@@ -5,9 +5,10 @@
 ;;; Code:
 (defun enable-minor-mode (my-pair)
   "Enable minor mode if filename match the regexp.  MY-PAIR is a cons cell (regexp . minor-mode)."
-  (if (buffer-file-name)
+  (if (/= (length buffer-file-name) 0)
       (if (string-match (car my-pair) buffer-file-name)
-      (funcall (cdr my-pair)))))
+		  (funcall (cdr my-pair))
+		(message "Could not match regex \"%s\" to buffer file name, not enabling %s" (car my-pair) (cdr my-pair)))))
 
 (setq package-list '(use-package sr-speedbar markdown-mode tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex jedi web-mode rainbow-mode shell-here js2-mode powershell transient highlight-indent-guides dakrone-theme json-mode yaml-mode auto-complete-auctex ac-math prettier-js python-black))
 (setq package-archives '(("elpa" . "https://tromey.com/elpa/")
@@ -74,8 +75,6 @@ There are two things you can do about this warning:
 					 ac-sources)))
      (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)))
 
-
-
 ;; Enable line numbers on side
 (if (< emacs-major-version 26)
 	(global-linum-mode 1)
@@ -93,7 +92,6 @@ There are two things you can do about this warning:
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (setq inhibit-startup-message t)
 (setq tool-bar-mode -1)
-
 
 ;; Theme, packages and customization
 (custom-set-variables
@@ -148,7 +146,6 @@ There are two things you can do about this warning:
   :demand t
   :after python)
 
-
 ;; Enable Arduino major mode
 ;; (add-to-list 'load-path "~/.emacs.d/vendor/arduino-mode")
 (setq auto-mode-alist (cons '("\\.\\(pde\\|ino\\)$" . arduino-mode) auto-mode-alist))
@@ -173,14 +170,15 @@ There are two things you can do about this warning:
 
 ;; Associate JS files with js2-mode
 (require 'js2-mode)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx?\\'" . js2-mode))
 
 ;; prettier-js
 ;; https://github.com/prettier/prettier-emacs
 ;; Windows require diffutils from chocolatey
 (require 'prettier-js)
 (add-hook 'js2-mode-hook 'prettier-js-mode)
-(add-hook 'web-mode-hook 'prettier-js-mode)
+;; Disable for web-mode, incompatible with Django
+;; (add-hook 'web-mode-hook 'prettier-js-mode)
 
 (setq prettier-js-args '(
   "--trailing-comma" "all"
@@ -193,7 +191,7 @@ There are two things you can do about this warning:
 ;; does not yet support Django ://
 (add-hook 'web-mode-hook #'(lambda ()
                             (enable-minor-mode
-                             '("\\.js?\\'" . prettier-js-mode))))
+                             '("\\.jsx?\\'" . prettier-js-mode))))
 
 ;; LaTeX
 (setq-default TeX-engine 'xetex)
