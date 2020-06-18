@@ -3,7 +3,13 @@
 ;;; Summary:
 
 ;;; Code:
-(setq package-list '(use-package sr-speedbar markdown-mode tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex jedi web-mode rainbow-mode shell-here js2-mode powershell transient highlight-indent-guides dakrone-theme json-mode yaml-mode auto-complete-auctex ac-math))
+(defun enable-minor-mode (my-pair)
+  "Enable minor mode if filename match the regexp.  MY-PAIR is a cons cell (regexp . minor-mode)."
+  (if (buffer-file-name)
+      (if (string-match (car my-pair) buffer-file-name)
+      (funcall (cdr my-pair)))))
+
+(setq package-list '(use-package sr-speedbar markdown-mode tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex jedi web-mode rainbow-mode shell-here js2-mode powershell transient highlight-indent-guides dakrone-theme json-mode yaml-mode auto-complete-auctex ac-math prettier-js python-black))
 (setq package-archives '(("elpa" . "https://tromey.com/elpa/")
                          ("gnu" . "https://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")))
@@ -105,7 +111,7 @@ There are two things you can do about this warning:
 	("2593436c53c59d650c8e3b5337a45f0e1542b1ba46ce8956861316e860b145a0" "28caf31770f88ffaac6363acfda5627019cac57ea252ceb2d41d98df6d87e240" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
  '(package-selected-packages
    (quote
-	(python-black exec-path-from-shell json-mode yaml-mode dakrone-theme dracula-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
+	(prettier-js python-black exec-path-from-shell json-mode yaml-mode dakrone-theme dracula-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -142,7 +148,6 @@ There are two things you can do about this warning:
   :demand t
   :after python)
 
-(setq python-black-on-save-mode t)
 
 ;; Enable Arduino major mode
 ;; (add-to-list 'load-path "~/.emacs.d/vendor/arduino-mode")
@@ -169,6 +174,26 @@ There are two things you can do about this warning:
 ;; Associate JS files with js2-mode
 (require 'js2-mode)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
+;; prettier-js
+;; https://github.com/prettier/prettier-emacs
+;; Windows require diffutils from chocolatey
+(require 'prettier-js)
+(add-hook 'js2-mode-hook 'prettier-js-mode)
+(add-hook 'web-mode-hook 'prettier-js-mode)
+
+(setq prettier-js-args '(
+  "--trailing-comma" "all"
+  "--bracket-spacing" "false"
+  "--single-quote"
+  "--tab-width" "4"
+  ))
+
+;; Only enable prettier mode for js files, as prettier
+;; does not yet support Django ://
+(add-hook 'web-mode-hook #'(lambda ()
+                            (enable-minor-mode
+                             '("\\.js?\\'" . prettier-js-mode))))
 
 ;; LaTeX
 (setq-default TeX-engine 'xetex)
