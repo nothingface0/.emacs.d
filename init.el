@@ -156,6 +156,7 @@ There are two things you can do about this warning:
 
 ;; Add jedi (not really sure if I'm using it)
 (add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
 
 ;; Setup web-mode for front-end types of files
 (require 'web-mode)
