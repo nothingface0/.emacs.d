@@ -62,18 +62,18 @@ There are two things you can do about this warning:
 ;; (highlight-doxygen-global-mode 1)
 
 ;; Activate auto-complete for latex modes (AUCTeX or Emacs' builtin one).
-(add-to-list 'ac-modes 'latex-mode)
+;; (add-to-list 'ac-modes 'latex-mode)
 
 ;; Activate ac-math.
-(eval-after-load "latex"
-  '(when (featurep 'auto-complete)
-     ;; See https://github.com/vspinu/ac-math
-     (require 'ac-math)
-     (defun ac-latex-mode-setup ()       ; add ac-sources to default ac-sources
-       (setq ac-sources
-			 (append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
-					 ac-sources)))
-     (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)))
+;; (eval-after-load "latex"
+;;   '(when (featurep 'auto-complete)
+;;      ;; See https://github.com/vspinu/ac-math
+;;      (require 'ac-math)
+;;      (defun ac-latex-mode-setup ()       ; add ac-sources to default ac-sources
+;;        (setq ac-sources
+;; 			 (append '(ac-source-math-unicode ac-source-math-latex ac-source-latex-commands)
+;; 					 ac-sources)))
+;;      (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)))
 
 ;; Enable line numbers on side
 (if (< emacs-major-version 26)
@@ -145,6 +145,8 @@ There are two things you can do about this warning:
 (use-package python-black
   :demand t
   :after python)
+
+(setq-default python-black-on-save-mode t)
 
 ;; Enable Arduino major mode
 ;; (add-to-list 'load-path "~/.emacs.d/vendor/arduino-mode")
