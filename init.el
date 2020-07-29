@@ -231,6 +231,12 @@ There are two things you can do about this warning:
 ;; Change comment format for C in C mode
 (add-hook 'c-mode-hook (lambda () (c-toggle-comment-style -1)))
 
+(defun arduino-indent-hook ()
+  "Arduino hook to fix indentation."
+  (setq c-basic-offset 4)
+  (setq tab-width 4))
+(add-hook 'arduino-mode-hook 'arduino-indent-hook)
+
 ;; custom key combinations
 (defun move-line-up ()
   "Move up the current line."
