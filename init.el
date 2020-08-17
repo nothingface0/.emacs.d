@@ -110,7 +110,7 @@ There are two things you can do about this warning:
 	("2593436c53c59d650c8e3b5337a45f0e1542b1ba46ce8956861316e860b145a0" "28caf31770f88ffaac6363acfda5627019cac57ea252ceb2d41d98df6d87e240" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
  '(package-selected-packages
    (quote
-	(clang-format+ prettier-js python-black exec-path-from-shell json-mode yaml-mode dakrone-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
+	(arduino-mode clang-format+ prettier-js python-black exec-path-from-shell json-mode yaml-mode dakrone-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -228,6 +228,13 @@ There are two things you can do about this warning:
 
 ;; Change comment format for C in C mode
 (add-hook 'c-mode-hook (lambda () (c-toggle-comment-style -1)))
+
+(defun vhdl-write-hook ()
+  (interactive)
+  (when (eq major-mode 'vhdl-mode)
+	(vhdl-beautify-buffer)))
+
+(add-hook 'before-save-hook 'vhdl-write-hook)
 
 (defun arduino-indent-hook ()
   "Arduino hook to fix indentation."
