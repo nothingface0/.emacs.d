@@ -290,5 +290,27 @@ There are two things you can do about this warning:
 
 (setq-default size-indication-mode t)
 
+(defun user--asm-mode-hook ()
+  "Assembly mode hook."
+  (setq
+   ;; Indent using tabs by default.
+   indent-tabs-mode t)
+
+  (user/gnu-global-enable))
+
+
+(define-derived-mode arm-mode asm-mode "ARM"
+  "Major mode for editing ARM assembler code."
+  ;; Unset ; key.
+  (local-unset-key (vector asm-comment-char))
+  (set (make-local-variable 'asm-comment-char) ?@)
+  (local-set-key (vector asm-comment-char) 'asm-comment)
+  ;; Update syntax for new comment char.
+  (set-syntax-table (make-syntax-table asm-mode-syntax-table))
+  (modify-syntax-entry asm-comment-char "< b")
+  ;; Fix one level comments.
+  (set (make-local-variable 'comment-start) (string asm-comment-char)))
+
+
 (provide '.emacs)
 ;;; init.el ends here
