@@ -104,11 +104,13 @@ There are two things you can do about this warning:
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
- '(custom-enabled-themes '(dakrone))
+ '(custom-enabled-themes (quote (dakrone)))
  '(custom-safe-themes
-   '("2593436c53c59d650c8e3b5337a45f0e1542b1ba46ce8956861316e860b145a0" "28caf31770f88ffaac6363acfda5627019cac57ea252ceb2d41d98df6d87e240" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default))
+   (quote
+	("2593436c53c59d650c8e3b5337a45f0e1542b1ba46ce8956861316e860b145a0" "28caf31770f88ffaac6363acfda5627019cac57ea252ceb2d41d98df6d87e240" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
  '(package-selected-packages
-   '(modeline-posn cuda-mode arduino-mode clang-format+ prettier-js python-black exec-path-from-shell json-mode yaml-mode dakrone-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package))
+   (quote
+	(modeline-posn cuda-mode arduino-mode clang-format+ prettier-js python-black exec-path-from-shell json-mode yaml-mode dakrone-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -311,6 +313,14 @@ There are two things you can do about this warning:
   ;; Fix one level comments.
   (set (make-local-variable 'comment-start) (string asm-comment-char)))
 
+;; Fix for skipping over words
+(defun next-word (p)
+   "Move point to the beginning of the next word, past any spaces"
+   (interactive "d")
+   (forward-word)
+   (forward-word)
+   (backward-word))
+(global-set-key "\M-f" 'next-word)
 
 (provide '.emacs)
 ;;; init.el ends here
