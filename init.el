@@ -313,14 +313,17 @@ There are two things you can do about this warning:
   ;; Fix one level comments.
   (set (make-local-variable 'comment-start) (string asm-comment-char)))
 
-;; Fix for skipping over words
-(defun next-word (p)
-   "Move point to the beginning of the next word, past any spaces"
-   (interactive "d")
-   (forward-word)
-   (forward-word)
-   (backward-word))
-(global-set-key "\M-f" 'next-word)
+(defun insert-date (prefix)
+    "Insert the current date. With prefix-argument, use ISO format. With two prefix arguments, write out the day and month name."
+    (interactive "P")
+    (let ((format (cond
+				   ((not prefix) "%Y-%m-%d %H:%M")))
+                   ;; ((not prefix) "%d.%m.%Y")
+                   ;; ((equal prefix '(4)) "%Y-%m-%d %H:%M")
+                   ;; ((equal prefix '(16)) "%A, %d. %B %Y")))
+          (system-time-locale "el"))
+      (insert (format-time-string format))))
+    (global-set-key (kbd "C-c d") 'insert-date)
 
 (provide '.emacs)
 ;;; init.el ends here
