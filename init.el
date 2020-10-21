@@ -10,7 +10,7 @@
 		  (funcall (cdr my-pair))
 		(message "Could not match regex \"%s\" to buffer file name, not enabling %s" (car my-pair) (cdr my-pair)))))
 
-(setq package-list '(use-package sr-speedbar markdown-mode tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex jedi web-mode rainbow-mode shell-here js2-mode powershell transient highlight-indent-guides dakrone-theme json-mode yaml-mode auto-complete-auctex ac-math prettier-js python-black clang-format+ modeline-posn))
+(setq package-list '(use-package sr-speedbar markdown-mode tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex jedi web-mode rainbow-mode shell-here js2-mode powershell transient highlight-indent-guides dakrone-theme json-mode yaml-mode auto-complete-auctex ac-math prettier-js python-black clang-format+ modeline-posn swiper))
 (setq package-archives '(("elpa" . "https://tromey.com/elpa/")
                          ("gnu" . "https://elpa.gnu.org/packages/")
                          ("marmalade" . "https://marmalade-repo.org/packages/")))
@@ -109,8 +109,7 @@ There are two things you can do about this warning:
    (quote
 	("2593436c53c59d650c8e3b5337a45f0e1542b1ba46ce8956861316e860b145a0" "28caf31770f88ffaac6363acfda5627019cac57ea252ceb2d41d98df6d87e240" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
  '(package-selected-packages
-   (quote
-	(modeline-posn cuda-mode arduino-mode clang-format+ prettier-js python-black exec-path-from-shell json-mode yaml-mode dakrone-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
+   '(swiper modeline-posn cuda-mode arduino-mode clang-format+ prettier-js python-black exec-path-from-shell json-mode yaml-mode dakrone-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -197,11 +196,7 @@ There are two things you can do about this warning:
                             (enable-minor-mode
                              '("\\.jsx?\\'" . prettier-js-mode))))
 
-;; LaTeX
-(setq-default TeX-engine 'xetex)
-(setq-default TeX-PDF-mode t)
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
+
 
 
 ;; Save session on exit
@@ -285,12 +280,22 @@ There are two things you can do about this warning:
 ;; Delete trailing whitespace
 (global-set-key "\C-c\w" 'delete-trailing-whitespace)
 
-;; AUCTeX settings
+;; LaTeX settings
 (setq-default TeX-engine 'xetex)
 (setq-default TeX-command-extra-options "-output-directory=build")
 (add-hook 'LaTeX-mode-hook 'turn-on-auto-fill)
+(setq-default TeX-engine 'xetex)
+(setq-default TeX-PDF-mode t)
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
 
-(setq-default size-indication-mode t)
+;; Count selected lines/chars
+(setq-default size-indication-mode 1)
+
+;; Swiper
+(global-set-key (kbd "C-s") 'swiper)
+(setq ivy-display-style 'fancy)
+
 
 (defun user--asm-mode-hook ()
   "Assembly mode hook."
