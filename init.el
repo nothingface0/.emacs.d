@@ -141,6 +141,14 @@ There are two things you can do about this warning:
 			  (append flycheck-disabled-checkers
 					  '(json-jsonlist)))
 
+(use-package flycheck-yamllint
+  :ensure t
+  :defer t
+  :init
+  (progn
+    (eval-after-load 'flycheck
+      '(add-hook 'flycheck-mode-hook 'flycheck-yamllint-setup))))
+
 (setq python-indent-guess-indent-offset-verbose nil)
 
 ;; Python black formatter
