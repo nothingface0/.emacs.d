@@ -10,7 +10,7 @@
 		  (funcall (cdr my-pair))
 		(message "Could not match regex \"%s\" to buffer file name, not enabling %s" (car my-pair) (cdr my-pair)))))
 
-(setq package-list '(use-package sr-speedbar markdown-mode tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex jedi web-mode rainbow-mode shell-here js2-mode powershell transient highlight-indent-guides dakrone-theme json-mode yaml-mode auto-complete-auctex ac-math prettier-js python-black clang-format+ modeline-posn swiper org))
+(setq package-list '(use-package sr-speedbar markdown-mode tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex jedi web-mode rainbow-mode shell-here js2-mode powershell transient highlight-indent-guides dakrone-theme json-mode yaml-mode auto-complete-auctex ac-math prettier-js python-black clang-format+ modeline-posn swiper vue-mode))
 (setq package-archives '(("elpa" . "https://tromey.com/elpa/")
                          ("gnu" . "https://elpa.gnu.org/packages/")
 						 ("org" . "https://orgmode.org/elpa/")))
@@ -111,7 +111,7 @@ There are two things you can do about this warning:
 	("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" "2593436c53c59d650c8e3b5337a45f0e1542b1ba46ce8956861316e860b145a0" "28caf31770f88ffaac6363acfda5627019cac57ea252ceb2d41d98df6d87e240" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
  '(package-selected-packages
    (quote
-	(swiper modeline-posn cuda-mode arduino-mode clang-format+ prettier-js python-black exec-path-from-shell json-mode yaml-mode dakrone-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
+	(vue-mode flycheck-yamllint swiper modeline-posn cuda-mode arduino-mode clang-format+ prettier-js python-black exec-path-from-shell json-mode yaml-mode dakrone-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -340,17 +340,18 @@ There are two things you can do about this warning:
       (insert (format-time-string format))))
     (global-set-key (kbd "C-c d") 'insert-date)
 
-(defun setup-org-mode ()
-  "Setup `org-mode`."
-  (add-to-list 'auto-mode-alist
-	       '("\\.org$" . org-mode) t)
-  (add-hook 'org-mode-hook
-            (lambda ()
-              (local-set-key (kbd "\C-cl") 'org-store-link)
-              (local-set-key (kbd "\C-ca") 'org-agenda)
-              (setq org-log-done t
-                    org-src-fontify-natively t))))
+;; (defun setup-org-mode ()
+;;   "Setup `org-mode`."
+;;   (add-to-list 'auto-mode-alist
+;; 	       '("\\.org$" . org-mode) t)
+;;   (add-hook 'org-mode-hook
+;;             (lambda ()
+;;               (local-set-key (kbd "\C-cl") 'org-store-link)
+;;               (local-set-key (kbd "\C-ca") 'org-agenda)
+;;               (setq org-log-done t
+;;                     org-src-fontify-natively t))))
 
-(setup-org-mode)
+;; (setup-org-mode)
+
 (provide '.emacs)
 ;;; init.el ends here
