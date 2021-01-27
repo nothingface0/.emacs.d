@@ -111,7 +111,7 @@ There are two things you can do about this warning:
 	("246cd0eb818bfd347b20fb6365c228fddf24ab7164752afe5e6878cb29b0204e" "2593436c53c59d650c8e3b5337a45f0e1542b1ba46ce8956861316e860b145a0" "28caf31770f88ffaac6363acfda5627019cac57ea252ceb2d41d98df6d87e240" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" default)))
  '(package-selected-packages
    (quote
-	(vue-mode flycheck-yamllint swiper modeline-posn cuda-mode arduino-mode clang-format+ prettier-js python-black exec-path-from-shell json-mode yaml-mode dakrone-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
+	(elpy vue-mode flycheck-yamllint swiper modeline-posn cuda-mode arduino-mode clang-format+ prettier-js python-black exec-path-from-shell json-mode yaml-mode dakrone-theme python-pep8 js2-mode powershell jedi sr-speedbar tabbar flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex markdown-mode shell-here rainbow-mode web-mode transient highlight-indent-guides use-package)))
  '(tab-width 4))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -125,7 +125,7 @@ There are two things you can do about this warning:
   :ensure t
   :init (global-flycheck-mode))
 
-(setq flycheck-python-pycompile-executable "python")
+(setq flycheck-python-pycompile-executable "python3")
 ;; disable jshint since we prefer eslint checking
 (setq-default flycheck-disabled-checkers
 			  (append flycheck-disabled-checkers
@@ -352,6 +352,18 @@ There are two things you can do about this warning:
 ;;                     org-src-fontify-natively t))))
 
 ;; (setup-org-mode)
+
+(use-package vue-mode
+  :config
+  (add-to-list 'vue-modes '(:type template :name nil :mode web-mode))
+  (add-to-list 'vue-modes '(:type template :name html :mode web-mode)))
+
+(use-package elpy
+  :ensure t
+  :init
+  (elpy-enable))
+(setq elpy-rpc-backend "jedi")
+(setq elpy-rpc-python-command "python3")
 
 (provide '.emacs)
 ;;; init.el ends here
