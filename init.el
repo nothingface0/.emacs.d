@@ -194,17 +194,17 @@ There are two things you can do about this warning:
 ;; (add-hook 'web-mode-hook 'prettier-js-mode)
 
 (setq prettier-js-args '(
-  "--trailing-comma" "all"
-  "--bracket-spacing" "false"
-  "--single-quote"
-  "--tab-width" "4"
-  ))
+						 "--trailing-comma" "all"
+						 "--bracket-spacing" "false"
+						 "--single-quote"
+						 "--tab-width" "4"
+						 ))
 
 ;; Only enable prettier mode for js files, as prettier
 ;; does not yet support Django ://
 (add-hook 'web-mode-hook #'(lambda ()
-                            (enable-minor-mode
-                             '("\\.jsx?\\'" . prettier-js-mode))))
+                             (enable-minor-mode
+                              '("\\.jsx?\\'" . prettier-js-mode))))
 
 
 
@@ -276,7 +276,7 @@ There are two things you can do about this warning:
 		(progn
 		  ;; (message "System is: %s" system-type)
 		  (let ((process-connection-type nil));
-		  (start-process "explorer" "*Messages*" "xdg-open" "."))))
+			(start-process "explorer" "*Messages*" "xdg-open" "."))))
 
 	;; (browse-file-directory)))
     (error "No `default-directory' to open")))
@@ -332,16 +332,16 @@ There are two things you can do about this warning:
   (set (make-local-variable 'comment-start) (string asm-comment-char)))
 
 (defun insert-date (prefix)
-    "Insert the current date. With prefix-argument, use ISO format. With two prefix arguments, write out the day and month name."
-    (interactive "P")
-    (let ((format (cond
-				   ((not prefix) "%Y-%m-%d %H:%M")))
-                   ;; ((not prefix) "%d.%m.%Y")
-                   ;; ((equal prefix '(4)) "%Y-%m-%d %H:%M")
-                   ;; ((equal prefix '(16)) "%A, %d. %B %Y")))
-          (system-time-locale "el"))
-      (insert (format-time-string format))))
-    (global-set-key (kbd "C-c d") 'insert-date)
+  "Insert the current date. With prefix-argument, use ISO format. With two prefix arguments, write out the day and month name."
+  (interactive "P")
+  (let ((format (cond
+				 ((not prefix) "%Y-%m-%d %H:%M")))
+        ;; ((not prefix) "%d.%m.%Y")
+        ;; ((equal prefix '(4)) "%Y-%m-%d %H:%M")
+        ;; ((equal prefix '(16)) "%A, %d. %B %Y")))
+        (system-time-locale "el"))
+    (insert (format-time-string format))))
+(global-set-key (kbd "C-c d") 'insert-date)
 
 ;; (defun setup-org-mode ()
 ;;   "Setup `org-mode`."
@@ -369,7 +369,7 @@ There are two things you can do about this warning:
 
 (if (string-equal system-type "windows-nt")
 	(setq elpy-rpc-python-command "python") ;Windows
-  (setq elpy-rpc-python-command "python3"))) ;Linux
+  (setq elpy-rpc-python-command "python3")) ;Linux
 
 (provide '.emacs)
 ;;; init.el ends here
