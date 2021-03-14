@@ -10,7 +10,7 @@
 		  (funcall (cdr my-pair))
 		(message "Could not match regex \"%s\" to buffer file name, not enabling %s" (car my-pair) (cdr my-pair)))))
 
-(setq package-list '(use-package sr-speedbar markdown-mode tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex jedi web-mode rainbow-mode shell-here js2-mode powershell transient highlight-indent-guides dakrone-theme json-mode yaml-mode auto-complete-auctex ac-math prettier-js python-black clang-format+ modeline-posn swiper vue-mode))
+(setq package-list '(use-package sr-speedbar markdown-mode tabbar arduino-mode flycheck magit autopair nocomments-mode highlight-doxygen auto-complete auctex jedi web-mode rainbow-mode shell-here js2-mode powershell transient highlight-indent-guides dakrone-theme json-mode yaml-mode auto-complete-auctex ac-math prettier-js python-black clang-format+ modeline-posn swiper vue-mode exec-path-from-shell))
 (setq package-archives '(("elpa" . "https://tromey.com/elpa/")
                          ("gnu" . "https://elpa.gnu.org/packages/")
 						 ("org" . "https://orgmode.org/elpa/")))
@@ -47,6 +47,10 @@ There are two things you can do about this warning:
 (dolist (package package-list)
   (unless (package-installed-p package)
     (package-install package)))
+
+;; Load path variables
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 
 ;; Autocomplete configuration
 (ac-config-default)
