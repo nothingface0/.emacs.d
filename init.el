@@ -156,9 +156,9 @@ There are two things you can do about this warning:
 (setq python-indent-guess-indent-offset-verbose nil)
 
 ;; Python black formatter
-(use-package python-black
-  :demand t
-  :after python)
+;; (use-package python-black
+;;  :demand t
+;;  :after python)
 
 (setq-default python-black-on-save-mode t)
 
@@ -374,6 +374,24 @@ There are two things you can do about this warning:
 (if (string-equal system-type "windows-nt")
 	(setq elpy-rpc-python-command "python") ;Windows
   (setq elpy-rpc-python-command "python3")) ;Linux
+
+;; Flycheck config
+(when (load "flycheck" t t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+;; Auto format on save
+(add-hook 'elpy-mode-hook (lambda ()
+                            (add-hook 'before-save-hook
+                                      'elpy-format-code nil t)))
+
+(setq elpy-remove-modeline-lighter t)
+
+(advice-add 'elpy-modules-remove-modeline-lighter
+            :around (lambda (fun &rest args)
+                      (unless (eq (car args) 'flymake-mode)
+                        (apply fun args))))
+
 
 (provide '.emacs)
 ;;; init.el ends here
