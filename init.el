@@ -392,6 +392,5 @@ There are two things you can do about this warning:
                       (unless (eq (car args) 'flymake-mode)
                         (apply fun args))))
 
-
 (provide '.emacs)
 ;;; init.el ends here
