@@ -157,10 +157,9 @@ There are two things you can do about this warning:
 
 ;; Python black formatter
 ;; (use-package python-black
-;;  :demand t
-;;  :after python)
-
-(setq-default python-black-on-save-mode t)
+;;   :demand t
+;;   :after python
+;;   :hook (python-mode . python-black-on-save-mode-enable-dwim))
 
 ;; Enable Arduino major mode
 ;; (add-to-list 'load-path "~/.emacs.d/vendor/arduino-mode")
@@ -370,6 +369,7 @@ There are two things you can do about this warning:
   :init
   (elpy-enable))
 (setq elpy-rpc-backend "jedi")
+;; (setq pyvenv-virtualenvwrapper-python "C:\\Users\\dpapagiannis\\AppData\\Local\\Programs\\Python\\Python39\\python.exe")
 
 (if (string-equal system-type "windows-nt")
 	(setq elpy-rpc-python-command "python") ;Windows
